@@ -1,0 +1,37 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/news-app.js",
+  "fragments": [
+    "src/news-list.js",
+    "src/news-article.js",
+    "src/news-path-warning.js",
+    "src/lazy-resources.js"
+  ],
+  "sources": [
+    "src/**/*",
+    "images/**/*",
+    "data/**/*"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/*.js"
+  ],
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    },
+    {
+      "preset": "es6-unbundled"
+    },
+    {
+      "preset": "es6-bundled"
+    }
+  ],
+  "moduleResolution": "node",
+  "npm": true,
+  "lint": {
+    "rules": [
+      "polymer-3"
+    ]
+  }
+}
