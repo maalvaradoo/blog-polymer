@@ -7,11 +7,10 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/iron-media-query/iron-media-query.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/iron-media-query/iron-media-query.js";
 import './news-header.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
 
 class NewsNav extends PolymerElement {
   static get template() {
@@ -34,25 +33,21 @@ class NewsNav extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-nav'; }
+  static get is() {
+    return 'news-nav';
+  }
 
-  static get properties() { return {
-
-    appTitle: String,
-
-    page: String,
-
-    categories: Array,
-
-    category: Object,
-
-    loadComplete: Boolean,
-
-    _smallScreen: Boolean,
-
-    _drawerOpened: Boolean
-
-  }}
+  static get properties() {
+    return {
+      appTitle: String,
+      page: String,
+      categories: Array,
+      category: Object,
+      loadComplete: Boolean,
+      _smallScreen: Boolean,
+      _drawerOpened: Boolean
+    };
+  }
 
   closeDrawer() {
     this._drawerOpened = false;
@@ -61,6 +56,7 @@ class NewsNav extends PolymerElement {
   _shouldRenderDrawer(smallScreen, loadComplete) {
     return smallScreen && loadComplete;
   }
+
 }
 
 customElements.define(NewsNav.is, NewsNav);

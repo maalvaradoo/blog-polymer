@@ -73,6 +73,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body>
 
+  <!--script src="/__/firebase/4.12.1/firebase-app.js"></script>
+  <script src="/__/firebase/4.12.1/firebase-database.js"></script-->
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+  <script>
+    var app = firebase.initializeApp({
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: ""
+    });
+
+    var database = firebase.database();
+
+  </script>
+  
   <news-app unresolved app-title="NEWS">NEWS</news-app>
 
   <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>

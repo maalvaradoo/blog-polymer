@@ -7,14 +7,12 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/app-route/app-route.js';
-import '@polymer/iron-icon/iron-icon.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/iron-icon/iron-icon.js";
 import './news-article-cover.js';
 import './news-side-list.js';
-import { html as html$0 } from '@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { html as html$0 } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
+import { afterNextRender } from "../node_modules/@polymer/polymer/lib/utils/render-status.js";
 
 class NewsArticle extends PolymerElement {
   static get template() {
@@ -158,8 +156,6 @@ class NewsArticle extends PolymerElement {
       }
     </style>
 
-    <app-route route="{{route}}" pattern="/:category/:id" data="{{_routeData}}"></app-route>
-
     <div class="container" fade-in\$="[[!loading]]" hidden\$="[[failure]]">
       <article class="flex">
         <news-article-cover id="cover0" class="fade-in"></news-article-cover>
@@ -191,61 +187,38 @@ class NewsArticle extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-article'; }
+  static get is() {
+    return 'news-article';
+  }
 
-  static get properties() { return {
+  static get properties() {
+    return {
+      category: Object,
+      article: Object,
+      previousArticle: {
+        type: Object,
+        computed: '_computePreviousArticle(category.items, article)'
+      },
+      nextArticle: {
+        type: Object,
+        computed: '_computeNextArticle(category.items, article)'
+      },
+      loading: Boolean,
+      offline: Boolean,
+      failure: Boolean
+    };
+  }
 
-    route: Object,
-
-    category: Object,
-
-    article: Object,
-
-    previousArticle: {
-      type: Object,
-      computed: '_computePreviousArticle(category.items, article)'
-    },
-
-    nextArticle: {
-      type: Object,
-      computed: '_computeNextArticle(category.items, article)'
-    },
-
-    loading: Boolean,
-
-    offline: Boolean,
-
-    failure: Boolean,
-
-    categoryName: {
-      type: Boolean,
-      computed: '_return(_routeData.category)',
-      notify: true
-    },
-
-    articleId: {
-      type: Boolean,
-      computed: '_return(_routeData.id)',
-      notify: true
-    },
-
-    _routeData: Object
-
-  }}
-
-  static get observers() { return [
-    '_loadArticle(article.html)',
-    '_articleChanged(article)'
-  ]}
+  static get observers() {
+    return ['_loadArticle(article.html)', '_articleChanged(article)'];
+  }
 
   connectedCallback() {
     super.connectedCallback();
     this._currentArticleCover = this.$.cover0;
     this._previousArticleCover = this.$.cover1;
     this._nextArticleCover = this.$.cover2;
-
     this._currentArticleCover.article = this.article;
-
     afterNextRender(this, this._installListeners);
   }
 
@@ -259,9 +232,9 @@ class NewsArticle extends PolymerElement {
   _touchstart(event) {
     if (this._isDesktopWidth()) {
       return;
-    }
+    } // Save start coordinates
 
-    // Save start coordinates
+
     if (!this._touchDir) {
       this._startX = event.changedTouches[0].clientX;
       this._startY = event.changedTouches[0].clientY;
@@ -270,6 +243,7 @@ class NewsArticle extends PolymerElement {
     if (this.previousArticle) {
       this._previousArticleCover.article = this.previousArticle;
     }
+
     if (this.nextArticle) {
       this._nextArticleCover.article = this.nextArticle;
     }
@@ -278,9 +252,9 @@ class NewsArticle extends PolymerElement {
   _touchmove(event) {
     if (this._isDesktopWidth()) {
       return;
-    }
+    } // Is touchmove mostly horizontal or vertical?
 
-    // Is touchmove mostly horizontal or vertical?
+
     if (!this._touchDir) {
       const absX = Math.abs(event.changedTouches[0].clientX - this._startX);
       const absY = Math.abs(event.changedTouches[0].clientY - this._startY);
@@ -290,17 +264,16 @@ class NewsArticle extends PolymerElement {
     if (this._touchDir === 'x') {
       // Prevent vertically scrolling when swiping
       event.preventDefault();
+      let dx = Math.round(event.changedTouches[0].clientX - this._startX); // Don't translate past the current image if there's no adjacent image in that direction
 
-      let dx = Math.round(event.changedTouches[0].clientX - this._startX);
-
-      // Don't translate past the current image if there's no adjacent image in that direction
-      if ((!this.previousArticle && dx > 0) || (!this.nextArticle && dx < 0)) {
+      if (!this.previousArticle && dx > 0 || !this.nextArticle && dx < 0) {
         dx = 0;
       }
 
       if (this.previousArticle) {
         this._translate(this._previousArticleCover, dx - this.offsetWidth, window.pageYOffset);
       }
+
       if (this.nextArticle) {
         this._translate(this._nextArticleCover, dx + this.offsetWidth, window.pageYOffset);
       }
@@ -310,57 +283,74 @@ class NewsArticle extends PolymerElement {
   _touchend(event) {
     if (this._isDesktopWidth()) {
       return;
-    }
+    } // Don't finish swiping if there are still active touches.
 
-    // Don't finish swiping if there are still active touches.
+
     if (event.touches.length) {
       return;
     }
 
     if (this._touchDir === 'x') {
-      let dx = Math.round(event.changedTouches[0].clientX - this._startX);
+      let dx = Math.round(event.changedTouches[0].clientX - this._startX); // Don't translate past the current image if there's no adjacent image in that direction
 
-      // Don't translate past the current image if there's no adjacent image in that direction
-      if ((!this.previousArticle && dx > 0) || (!this.nextArticle && dx < 0)) {
+      if (!this.previousArticle && dx > 0 || !this.nextArticle && dx < 0) {
         dx = 0;
       }
 
       if (dx > 0) {
         if (dx > 100) {
-          this._translate(this._previousArticleCover, 0, window.pageYOffset, true /* transition */);
+          this._translate(this._previousArticleCover, 0, window.pageYOffset, true
+          /* transition */
+          );
+
           window.setTimeout(() => {
-            this.set('_routeData.id', this.previousArticle.id);
-            Polymer.AppLayout.scroll({ top: 0 });
+            Polymer.AppLayout.scroll({
+              top: 0
+            });
             this._previousArticleCover = this._swapCurrentArticleCovers(this._previousArticleCover);
+
             this._resetElementStyles(this._nextArticleCover);
           }, 200);
         } else {
-          this._translate(this._previousArticleCover, -this.offsetWidth, window.pageYOffset, true /* transition */);
+          this._translate(this._previousArticleCover, -this.offsetWidth, window.pageYOffset, true
+          /* transition */
+          );
+
           window.setTimeout(() => {
             this._resetElementStyles(this._previousArticleCover);
+
             this._resetElementStyles(this._nextArticleCover);
           }, 200);
         }
       } else if (dx < 0) {
         if (dx < -100) {
-          this._translate(this._nextArticleCover, 0, window.pageYOffset, true /* transition */);
+          this._translate(this._nextArticleCover, 0, window.pageYOffset, true
+          /* transition */
+          );
+
           window.setTimeout(() => {
-            this.set('_routeData.id', this.nextArticle.id);
-            Polymer.AppLayout.scroll({ top: 0 });
+            Polymer.AppLayout.scroll({
+              top: 0
+            });
             this._nextArticleCover = this._swapCurrentArticleCovers(this._nextArticleCover);
+
             this._resetElementStyles(this._previousArticleCover);
           }, 200);
         } else {
-          this._translate(this._nextArticleCover, this.offsetWidth, window.pageYOffset, true /* transition */);
+          this._translate(this._nextArticleCover, this.offsetWidth, window.pageYOffset, true
+          /* transition */
+          );
+
           window.setTimeout(() => {
             this._resetElementStyles(this._previousArticleCover);
+
             this._resetElementStyles(this._nextArticleCover);
           }, 200);
         }
       }
-    }
+    } // Reset touch direction
 
-    // Reset touch direction
+
     this._touchDir = null;
   }
 
@@ -382,10 +372,10 @@ class NewsArticle extends PolymerElement {
     oldCover.classList.add('preview-cover');
 
     this._resetElementStyles(newCover);
+
     newCover.classList.remove('preview-cover');
     this._currentArticleCover = newCover;
     newCover.parentElement.insertBefore(newCover, oldCover);
-
     return oldCover;
   }
 
@@ -399,8 +389,8 @@ class NewsArticle extends PolymerElement {
     if (this._currentArticleCover) {
       this._currentArticleCover.classList.add('fade-in');
     }
-    this.$.content.innerHTML = html;
-    //ShadyCSS.styleSubtree(this.$.content);
+
+    this.$.content.innerHTML = html; //ShadyCSS.styleSubtree(this.$.content);
   }
 
   _articleChanged(article) {
@@ -412,7 +402,10 @@ class NewsArticle extends PolymerElement {
   }
 
   _tryReconnect() {
-    this.dispatchEvent(new CustomEvent('refresh-data', {bubbles: true, composed: true}));
+    this.dispatchEvent(new CustomEvent('refresh-data', {
+      bubbles: true,
+      composed: true
+    }));
   }
 
   _slice(list, begin, end) {
@@ -421,23 +414,20 @@ class NewsArticle extends PolymerElement {
     }
   }
 
-  _return(value) {
-    return value;
-  }
-
   _computePreviousArticle(categoryItems, article) {
     if (categoryItems) {
       const i = categoryItems.indexOf(article);
-      return i > 0 ? categoryItems[i-1] : null;
+      return i > 0 ? categoryItems[i - 1] : null;
     }
   }
 
   _computeNextArticle(categoryItems, article) {
     if (categoryItems) {
       const i = categoryItems.indexOf(article);
-      return (i > -1 && i < categoryItems.length-1) ? categoryItems[i+1] : null;
+      return i > -1 && i < categoryItems.length - 1 ? categoryItems[i + 1] : null;
     }
   }
+
 }
 
 customElements.define(NewsArticle.is, NewsArticle);

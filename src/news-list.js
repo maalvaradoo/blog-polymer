@@ -7,16 +7,14 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/app-route/app-route.js';
-import '@polymer/app-layout/app-grid/app-grid-style.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/app-layout/app-grid/app-grid-style.js";
 import './news-list-featured-item.js';
 import './news-list-item.js';
 import './news-side-list.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
+import { Debouncer } from "../node_modules/@polymer/polymer/lib/utils/debounce.js";
+import { timeOut } from "../node_modules/@polymer/polymer/lib/utils/async.js";
 
 class NewsList extends PolymerElement {
   static get template() {
@@ -140,11 +138,6 @@ class NewsList extends PolymerElement {
 
     </style>
 
-    <!--
-      app-route provides the name of the category.
-    -->
-    <app-route route="[[route]]" pattern="/:category" data="{{routeData}}"></app-route>
-
     <div class="container" fade-in\$="[[!loading]]" hidden\$="[[failure]]">
       <div class="content">
         <news-list-featured-item item="[[_getFeaturedItem(category.items)]]">
@@ -189,29 +182,18 @@ class NewsList extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-list'; }
+  static get is() {
+    return 'news-list';
+  }
 
-  static get properties() { return {
-
-    route: Object,
-
-    category: Object,
-
-    offline: Boolean,
-
-    failure: Boolean,
-
-    categoryName: {
-      type: Boolean,
-      computed: '_return(routeData.category)',
-      notify: true
-    },
-
-    routeData: Object,
-
-    loading: Boolean
-
-  }}
+  static get properties() {
+    return {
+      category: Object,
+      offline: Boolean,
+      failure: Boolean,
+      loading: Boolean
+    };
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -229,12 +211,16 @@ class NewsList extends PolymerElement {
   }
 
   _tryReconnect() {
-    this.dispatchEvent(new CustomEvent('refresh-data', {bubbles: true, composed: true}));
+    this.dispatchEvent(new CustomEvent('refresh-data', {
+      bubbles: true,
+      composed: true
+    }));
   }
 
   _resizeHandler() {
-    this._resizeDebouncer = Debouncer.debounce(this._resizeDebouncer,
-      timeOut.after(50), () => { this.updateStyles(); });
+    this._resizeDebouncer = Debouncer.debounce(this._resizeDebouncer, timeOut.after(50), () => {
+      this.updateStyles();
+    });
   }
 
   _slice(list, begin, end) {
@@ -243,9 +229,6 @@ class NewsList extends PolymerElement {
     }
   }
 
-  _return(value) {
-    return value;
-  }
 }
 
 customElements.define(NewsList.is, NewsList);

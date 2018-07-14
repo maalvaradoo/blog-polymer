@@ -9,8 +9,12 @@
     "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
   },
   "author": "The Polymer Authors",
+  "scripts": {
+    "dev": "polymer serve --port 8081 | npm run watch",
+    "test": "polymer test",
+    "watch": "browser-sync start --proxy localhost:8081 --files \"src/**/*.*, index.html, *.js\""
+  },
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
     "@polymer/app-layout": "^3.0.0-pre.18",
     "@polymer/app-route": "^3.0.0-pre.18",
     "@polymer/iron-flex-layout": "^3.0.0-pre.18",
@@ -18,7 +22,8 @@
     "@polymer/iron-iconset-svg": "^3.0.0-pre.18",
     "@polymer/iron-pages": "^3.0.0-pre.18",
     "@polymer/iron-selector": "^3.0.0-pre.18",
-    "@polymer/paper-icon-button": "^3.0.0-pre.18"
+    "@polymer/paper-icon-button": "^3.0.0-pre.18",
+    "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
     "wct-browser-legacy": "^0.0.1-pre.11"

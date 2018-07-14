@@ -1,8 +1,7 @@
-import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
+import "../node_modules/@polymer/iron-icon/iron-icon.js";
+import "../node_modules/@polymer/iron-iconset-svg/iron-iconset-svg.js";
 const $_documentContainer = document.createElement('template');
 $_documentContainer.setAttribute('style', 'display: none;');
-
 $_documentContainer.innerHTML = `<iron-iconset-svg name="icons" size="24">
 <svg><defs>
 <g id="close"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></g>
@@ -14,9 +13,7 @@ $_documentContainer.innerHTML = `<iron-iconset-svg name="icons" size="24">
 <g id="error"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></g>
 </defs></svg>
 </iron-iconset-svg>`;
-
 document.head.appendChild($_documentContainer.content);
-
 /**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -26,9 +23,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
+
 /*
   FIXME(polymer-modulizer): the above comments were extracted
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
+
 ;

@@ -7,12 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@polymer/iron-selector/iron-selector.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/app-layout/app-toolbar/app-toolbar.js";
+import "../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js";
+import "../node_modules/@polymer/iron-selector/iron-selector.js";
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
 
 class NewsHeader extends PolymerElement {
   static get template() {
@@ -262,7 +261,7 @@ class NewsHeader extends PolymerElement {
           <iron-selector role="navigation" class="menu-list" selected="[[category.name]]" attr-for-selected="name">
             <dom-repeat items="[[categories]]" as="category" initial-count="9">
               <template>
-                <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+                <a name="[[category.name]]" href="/categoria/[[category.name]]">[[category.title]]</a>
               </template>
             </dom-repeat>
           </iron-selector>
@@ -294,7 +293,7 @@ class NewsHeader extends PolymerElement {
         <iron-selector class="grid-container" role="navigation" selected="[[category.name]]" attr-for-selected="name">
           <dom-repeat items="[[categories]]" as="category" initial-count="9">
             <template>
-              <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+              <a name="[[category.name]]" href="/categoria/[[category.name]]">[[category.title]]</a>
             </template>
           </dom-repeat>
         </iron-selector>
@@ -303,44 +302,34 @@ class NewsHeader extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-header'; }
+  static get is() {
+    return 'news-header';
+  }
 
-  static get properties() { return {
-
-    appTitle: String,
-
-    page: {
-      type: String,
-      reflectToAttribute: true
-    },
-
-    categories: Array,
-
-    category: Object,
-
-    smallScreen: Boolean,
-
-    drawerOpened: {
-      type: Boolean,
-      notify: true
-    }
-
-  }}
+  static get properties() {
+    return {
+      appTitle: String,
+      page: {
+        type: String,
+        reflectToAttribute: true
+      },
+      categories: Array,
+      category: Object,
+      smallScreen: Boolean,
+      drawerOpened: {
+        type: Boolean,
+        notify: true
+      }
+    };
+  }
 
   _menuIcon(drawerOpened) {
     return drawerOpened ? 'close' : 'menu';
   }
 
   _currentTime() {
-    let monthNames = [
-      'January', 'February', 'March',
-      'April', 'May', 'June', 'July',
-      'August', 'September', 'October',
-      'November', 'December'
-    ];
-
+    let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     let date = new Date();
-
     return monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
   }
 
@@ -355,6 +344,7 @@ class NewsHeader extends PolymerElement {
   _computeAppHomeLabel(appTitle) {
     return appTitle + ' Home';
   }
+
 }
 
 customElements.define(NewsHeader.is, NewsHeader);

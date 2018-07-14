@@ -17,18 +17,19 @@ class NewsGptAd extends HTMLElement {
     var w = parseInt(this.getAttribute('ad-width'), 10);
     var h = parseInt(this.getAttribute('ad-height'), 10);
     var id = this.id;
-    
+
     if (!adUnitPath || !w || !h || !id) {
       console.warn('news-gpt-ad missing required attribute', this);
       return;
     }
 
-    window.googletag.cmd.push(function() {
+    window.googletag.cmd.push(function () {
       googletag.defineSlot(adUnitPath, [w, h], id).addService(googletag.pubads());
       googletag.enableServices();
       googletag.display(elem);
     });
   }
+
 }
 
 customElements.define('news-gpt-ad', NewsGptAd);

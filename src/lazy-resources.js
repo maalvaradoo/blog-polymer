@@ -4,9 +4,8 @@ import './news-drawer.js';
 import './news-gpt-ad.js';
 import './news-network-warning.js';
 import './news-snackbar.js';
-import '@polymer/app-layout/app-box/app-box.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-
+import "../node_modules/@polymer/app-layout/app-box/app-box.js";
+import "../node_modules/@polymer/paper-icon-button/paper-icon-button.js";
 /**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -16,9 +15,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
+
 /*
   FIXME(polymer-modulizer): the above comments were extracted
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
+
 ;

@@ -7,11 +7,10 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/iron-selector/iron-selector.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/app-layout/app-drawer/app-drawer.js";
+import "../node_modules/@polymer/iron-selector/iron-selector.js";
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
 
 class NewsDrawer extends PolymerElement {
   static get template() {
@@ -55,7 +54,7 @@ class NewsDrawer extends PolymerElement {
       <iron-selector role="navigation" class="drawer-list" selected="[[category.name]]" attr-for-selected="name">
         <dom-repeat items="[[categories]]" as="category" initial-count="9">
           <template>
-            <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+            <a name="[[category.name]]" href="/categoria/[[category.name]]">[[category.title]]</a>
           </template>
         </dom-repeat>
       </iron-selector>
@@ -63,24 +62,25 @@ class NewsDrawer extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-drawer'; }
+  static get is() {
+    return 'news-drawer';
+  }
 
-  static get properties() { return {
-
-    categories: Array,
-
-    category: Object,
-
-    drawerOpened: {
-      type: Boolean,
-      notify: true
-    }
-
-  }}
+  static get properties() {
+    return {
+      categories: Array,
+      category: Object,
+      drawerOpened: {
+        type: Boolean,
+        notify: true
+      }
+    };
+  }
 
   _closeDrawer() {
     this.drawerOpened = false;
   }
+
 }
 
 customElements.define(NewsDrawer.is, NewsDrawer);

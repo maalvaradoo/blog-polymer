@@ -7,10 +7,9 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import '@polymer/iron-icon/iron-icon.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import "../node_modules/@polymer/iron-icon/iron-icon.js";
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
 
 class NewsPathWarning extends PolymerElement {
   static get template() {
@@ -54,14 +53,17 @@ class NewsPathWarning extends PolymerElement {
 
     <div>
       <iron-icon icon="error"></iron-icon>
-      <h1>Sorry, we couldn't find that page.</h1>
+      <h1>Lo siento, no puedo encontrar esa página. :(</h1>
     </div>
 
-    <a href="/">Go to the home page</a>
+    <a href="/">Regresar al inicio</a>
 `;
   }
 
-  static get is() { return 'news-path-warning'; }
+  static get is() {
+    return 'news-path-warning';
+  }
+
 }
 
 customElements.define(NewsPathWarning.is, NewsPathWarning);

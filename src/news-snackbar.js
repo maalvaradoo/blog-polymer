@@ -7,12 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { flush } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import { html } from "../node_modules/@polymer/polymer/lib/utils/html-tag.js";
+import { flush } from "../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js";
+import { Debouncer } from "../node_modules/@polymer/polymer/lib/utils/debounce.js";
+import { timeOut } from "../node_modules/@polymer/polymer/lib/utils/async.js";
 
 class NewsSnackbar extends PolymerElement {
   static get template() {
@@ -61,7 +60,9 @@ class NewsSnackbar extends PolymerElement {
 `;
   }
 
-  static get is() { return 'news-snackbar'; }
+  static get is() {
+    return 'news-snackbar';
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -73,16 +74,16 @@ class NewsSnackbar extends PolymerElement {
     flush();
     this.removeAttribute('aria-hidden');
     this.offsetHeight && this.classList.add('opened');
-    this._closeDebouncer = Debouncer.debounce(this._closeDebouncer,
-      timeOut.after(4000), () => {
-        this.close();
-      });
+    this._closeDebouncer = Debouncer.debounce(this._closeDebouncer, timeOut.after(4000), () => {
+      this.close();
+    });
   }
 
   close() {
     this.setAttribute('aria-hidden', 'true');
     this.classList.remove('opened');
   }
+
 }
 
 customElements.define(NewsSnackbar.is, NewsSnackbar);
